@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  geth: # this is Optimism's geth client
+    build: ../
+    ports:
+      - 8544:8545 # RPC
+      - 8546:8546 # websocket
+      - 30302:30303 # P2P TCP (currently unused)
+      - 30302:30303/udp # P2P UDP (currently unused)
+      - 7304:6060 # metrics
+    command: ["sh", "/scripts/geth-entrypoint.sh", "testnet"]
+    volumes:
+      - ../scripts:/scripts
+      - /home/ubuntu/datadir_testnet:/home/ubuntu/datadir_testnet
+    container_name: op-geth-testnet
+
+  node:
+    build: ../
+    depends_on:
+      - geth
+    ports:
+      - 7544:8545 # RPC
+      - 9002:9222 # P2P TCP
+      - 9002:9222/udp # P2P UDP
+      - 7302:7300 # metrics
+      - 6059:6060 # pprof
+    command: ["sh", "/scripts/op-node-entrypoint.sh", "testnet"]
+    volumes:
+      - ../scripts:/scripts
+    container_name: op-node-testnet
