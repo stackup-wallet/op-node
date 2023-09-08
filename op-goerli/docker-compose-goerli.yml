@@ -13,6 +13,8 @@ services:
     volumes:
       - ../scripts:/scripts
       - /home/ubuntu/datadir_testnet:/home/ubuntu/datadir_testnet
+    env_file:
+      - ../.env.goerli
     container_name: op-geth-testnet
 
   node:
@@ -28,4 +30,6 @@ services:
     command: ["sh", "/scripts/op-node-entrypoint.sh", "testnet"]
     volumes:
       - ../scripts:/scripts
+    env_file:
+      - ../.env.goerli
     container_name: op-node-testnet

@@ -13,6 +13,8 @@ services:
     volumes:
       - ../scripts:/scripts
       - /home/ubuntu/datadir_mainnet:/home/ubuntu/datadir_mainnet
+    environment:
+      - ../.env.mainnet
     container_name: op-geth-mainnet
 
   node:
@@ -28,4 +30,6 @@ services:
     command: ["sh", "/scripts/op-node-entrypoint.sh", "mainnet"]
     volumes:
       - ../scripts:/scripts
+    env_file:
+      - ../.env.mainnet
     container_name: op-node-mainnet
