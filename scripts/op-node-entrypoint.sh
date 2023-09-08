@@ -2,6 +2,8 @@
 set -eu
 NETWORK=${1:-mainnet} # This sets a default value of "mainnet" if no argument is provided
 L1= # This is the L1 RPC endpoint
+OP_NODE_L2_ENGINE_AUTH_RAW=e40d7f3f9836d2d7ed53b3f67954f8a3dae937b0ca112d059f8c56ba433a4ff1
+OP_NODE_L2_ENGINE_AUTH=/tmp/engine-auth-jwt
 
 if [ $NETWORK = "testnet" ]; then
  NETWORKVER=goerli
