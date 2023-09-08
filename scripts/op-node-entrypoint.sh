@@ -8,9 +8,11 @@ OP_NODE_L2_ENGINE_AUTH=/tmp/engine-auth-jwt
 if [ $NETWORK = "testnet" ]; then
  NETWORKVER=goerli
  OP_NODE_L2_ENGINE_RPC=http://geth:8550
+  NODEL1=$L1:8544
 else
  NETWORKVER=mainnet
  OP_NODE_L2_ENGINE_RPC=http://geth:8551
+ NODEL1=$L1:8545
 fi
 
 # wait until local geth comes up (authed so will return 401 without token)
@@ -32,7 +34,7 @@ exec ./op-node \
   --p2p.listen.ip=0.0.0.0 \
   --p2p.peers.lo=10 \
   --p2p.peers.hi=20 \
-  --l1=$L1 \
+  --l1=$NODEL1 \
   --l2=$OP_NODE_L2_ENGINE_RPC \
   --log.level=info \
   --log.format=logfmt
